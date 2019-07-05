@@ -1,0 +1,120 @@
+﻿@page
+@model eCommerce.Pages.Panel.StatisticsModel
+
+@{
+    ViewData["Title"] = "Số liệu thống kê";
+}
+<div class="contenti">
+    <div class="row">
+        <div class="col-md-6">
+            <h6>Người dùng</h6>
+            <table class="table table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <th>Mã Khách Hàng</th>
+                        <th>Họ Tên</th>
+                        <th>Email</th>
+                        <th>Đơn Đặt Hàng</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Users.Count == 0)
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center">There us no user.</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        @foreach (var item in Model.Users)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.FullName</td>
+                                <td>@item.Email</td>
+                                <td>@item.Orders</td>
+                                <td><a asp-page="/Profile/Index" asp-route-userId="@item.Id" class="btn btn-primary"><i class="fa fa-eye"></i></a></td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <h6>Sản Phẩm</h6>
+            <table class="table table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <th>Mã</th>
+                        <th>Tên</th>
+                        <th>Số lượng</th>
+                        <th>Giá</th>
+                        <th>Đã bán</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Products.Count == 0)
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center">There is no product.</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        @foreach (var item in Model.Products)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.ProductName</td>
+                                <td>@item.Quantity</td>
+                                <td>@item.Price VNĐ</td>
+                                <td>@item.Sold</td>
+                                <td><a asp-page="/Producti/Index" asp-route-id="@item.Id" class="btn btn-primary"><i class="fa fa-eye"></i></a></td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <h6>Đơn đặt hàng</h6>
+            <table class="table table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <th>Mã sản phẩm</th>
+                        <th>Ngày đặt</th>
+                        <th>Tài khoản</th>
+                        <th>Trạng thái đặt</th>
+                        <th>Tổng tiền</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.CostOrders.Count == 0)
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center">There is no product.</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        @foreach (var item in Model.CostOrders)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.OrderedDate</td>
+                                <td><a asp-page="/Profile/Index" asp-route-userId="@item.UserId">@item.UsersFullName</a></td>
+                                <td>@item.Status</td>
+                                <td>@item.TotalPrice.ToString("") VNĐ</td>
+                                <td><a asp-page="/Cart/View" asp-route-id="@item.Id" class="btn btn-primary"><i class="fa fa-eye"></i></a></td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</div>
